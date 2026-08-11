@@ -1,0 +1,39 @@
+local evolved = require "lib.evolved"
+local gcmp = require("ecs.features.gameobject_feature.components")
+local icmp = require("ecs.features.input_feature.components")
+local dcmp = require("ecs.features.drag_feature.components")
+
+local function use_feature(self, feature)
+	for _, system in ipairs(feature) do
+		self.systems[#self.systems + 1] = system
+	end
+end
+
+function init(self)
+	msg.post(".", "acquire_input_focus")
+
+	self.systems = {}
+	
+	use_feature(self, require("ecs.features.gameobject_feature.feature").process)
+	use_feature(self, require("ecs.features.drag_feature.feature").process)
+	use_feature(self, require("ecs.features.gameobject_feature.feature").postprocess)
+	use_feature(self, require("ecs.features.core_feature.feature").postprocess)
+
+	pprint(self.systems)
+
+	local ety = evolved.id()
+	evolved.set(ety, gcmp.GameobjectCreate, msg.url("/root#logo_factory"))
+	evolved.set(ety, dcmp.Draggable, true)
+
+	self.global_input = icmp.InputAction
+	evolved.set(self.global_input, icmp.InputAction, true)
+end
+
+function update(self, dt)
+	for i = 1, #self.systems do
+		evolved.process_with(self.systems[i], dt)
+	end
+end
+
+function on_input(self, action_id, action)
+end
