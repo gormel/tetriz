@@ -4,6 +4,8 @@ local icmp = require("ecs.features.input_feature.components")
 local gpcmp=  require("ecs.features.gameplay_feature.components")
 local dcmp = require("ecs.features.drag_feature.components")
 
+local cfg = require("cfg.cfg")
+
 local function use_feature(self, feature)
 	for _, system in ipairs(feature) do
 		self.systems[#self.systems + 1] = system
@@ -15,7 +17,8 @@ local function create(path)
 
 	local ety = evolved.id()
 	evolved.set(ety, gcmp.GameobjectId, id)
-	evolved.set(ety, gpcmp.Source, msg.url("/root#logo_factory"))
+	evolved.set(ety, gpcmp.Source, msg.url("/root#figure_factory"))
+	evolved.set(ety, gpcmp.RollFigure)
 	--evolved.set(ety, dcmp.Draggable, true)
 	go.set(msg.url(nil, id, "input"), "entity", ety)
 end

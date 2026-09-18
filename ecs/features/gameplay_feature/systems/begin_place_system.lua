@@ -7,6 +7,7 @@ local cmp = require "ecs.features.gameplay_feature.components"
 
 local filter = evolved.builder()
     :include(cmp.Source)
+    :include(cmp.SourceFigure)
     :include(gcmp.GameobjectId)
     :include(icmp.InputPress)
     :include(icmp.InputPosition)
@@ -15,6 +16,7 @@ local function update(chunk, ety_list, ety_c, dt)
     for _, entity in ipairs(ety_list) do
         evolved.remove(entity, icmp.InputPress)
         local url = evolved.get(entity, cmp.Source)
+        local figure_cfg = evolved.get(entity, cmp.SourceFigure)
 
         local id = evolved.get(entity, gcmp.GameobjectId)
         local pos = go.get_position(id)
@@ -24,9 +26,9 @@ local function update(chunk, ety_list, ety_c, dt)
 
         local in_drag = evolved.id()
         evolved.set(in_drag, gcmp.GameobjectCreate, { url = url, position = pos })
-        evolved.set(in_drag, cmp.PlaceInProgress, true)
         evolved.set(in_drag, dcmp.BeginDrag, { dx = dx, dy = dy, dz = pos.z })
         evolved.set(in_drag, dcmp.Draggable, true)
+        evolved.set(in_drag, cmp.AttachFigure, figure_cfg)
     end
 end
 
