@@ -1,9 +1,10 @@
 images {
-  image: "/assets/app_icons/icon_180.png"
-}
-images {
   image: "/assets/background.png"
 }
-margin: 0
+images {
+  image: "/assets/icon_180_1.png"
+}
+images {
+  image: "/assets/app_icons/icon_180.png"
+}
 extrude_borders: 2
-inner_padding: 0

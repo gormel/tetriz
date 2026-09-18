@@ -1,12 +1,23 @@
 local evolved = require "lib.evolved"
 local gcmp = require("ecs.features.gameobject_feature.components")
 local icmp = require("ecs.features.input_feature.components")
+local gpcmp=  require("ecs.features.gameplay_feature.components")
 local dcmp = require("ecs.features.drag_feature.components")
 
 local function use_feature(self, feature)
 	for _, system in ipairs(feature) do
 		self.systems[#self.systems + 1] = system
 	end
+end
+
+local function create(path)
+	local id = go.get_id(path)
+
+	local ety = evolved.id()
+	evolved.set(ety, gcmp.GameobjectId, id)
+	evolved.set(ety, gpcmp.Source, msg.url("/root#logo_factory"))
+	--evolved.set(ety, dcmp.Draggable, true)
+	go.set(msg.url(nil, id, "input"), "entity", ety)
 end
 
 function init(self)
@@ -16,14 +27,12 @@ function init(self)
 	
 	use_feature(self, require("ecs.features.gameobject_feature.feature").process)
 	use_feature(self, require("ecs.features.drag_feature.feature").process)
+	use_feature(self, require("ecs.features.gameplay_feature.feature").process)
 	use_feature(self, require("ecs.features.gameobject_feature.feature").postprocess)
 	use_feature(self, require("ecs.features.core_feature.feature").postprocess)
 
-	pprint(self.systems)
-
-	local ety = evolved.id()
-	evolved.set(ety, gcmp.GameobjectCreate, msg.url("/root#logo_factory"))
-	evolved.set(ety, dcmp.Draggable, true)
+	create("/logo_spawner")
+	create("/logo_spawner1")
 
 	self.global_input = icmp.InputAction
 	evolved.set(self.global_input, icmp.InputAction, true)

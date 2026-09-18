@@ -7,6 +7,22 @@ instances {
     y: 568.0
   }
 }
+instances {
+  id: "logo_spawner"
+  prototype: "/assets/prefabs/logo_spawner.go"
+  position {
+    x: 486.0
+    y: 856.0
+  }
+}
+instances {
+  id: "logo_spawner1"
+  prototype: "/assets/prefabs/logo_spawner.go"
+  position {
+    x: 246.0
+    y: 531.0
+  }
+}
 scale_along_z: 0
 embedded_instances {
   id: "root"

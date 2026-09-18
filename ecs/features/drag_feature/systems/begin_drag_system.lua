@@ -6,22 +6,16 @@ local cmp = require "ecs.features.drag_feature.components"
 local filter = evolved
     .builder()
     :include(cmp.Draggable)
-    :include(icmp.InputPress)
-    :include(icmp.InputPosition)
+    :include(cmp.BeginDrag)
     :include(gcmp.GameobjectId)
 
 local function update(chunk, ety_list, ety_c, dt)
     for _, ety in ipairs(ety_list) do
-        evolved.remove(ety, icmp.InputPress)
-
-        local id = evolved.get(ety, gcmp.GameobjectId)
-        local ipos = evolved.get(ety, icmp.InputPosition)
-        local pos = go.get_position(id)
-        local dx = pos.x - ipos.x
-        local dy = pos.y - ipos.y
+        local begin = evolved.get(ety, cmp.BeginDrag)
+        evolved.remove(ety, cmp.BeginDrag)
 
         evolved.set(ety, cmp.InDrag, true)
-        evolved.set(ety, cmp.DragOffset, { x = dx, y = dy, z = pos.z })
+        evolved.set(ety, cmp.DragOffset, { x = begin.dx, y = begin.dy, z = begin.dz })
     end
 end
 
