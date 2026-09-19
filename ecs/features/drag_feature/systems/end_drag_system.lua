@@ -14,6 +14,7 @@ local function update(chunk, ety_list, ety_c, dt)
 
         evolved.remove(entity, cmp.InDrag)
         evolved.remove(entity, cmp.DragOffset)
+        evolved.set(entity, cmp.DragComplete, true)
     end
 end
 

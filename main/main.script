@@ -18,7 +18,7 @@ local function create(path)
 	local ety = evolved.id()
 	evolved.set(ety, gcmp.GameobjectId, id)
 	evolved.set(ety, gpcmp.Source, msg.url("/root#figure_factory"))
-	evolved.set(ety, gpcmp.RollFigure)
+	evolved.set(ety, gpcmp.RollFigure, true)
 	--evolved.set(ety, dcmp.Draggable, true)
 	go.set(msg.url(nil, id, "input"), "entity", ety)
 end

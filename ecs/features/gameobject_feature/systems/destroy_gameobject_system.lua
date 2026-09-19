@@ -11,7 +11,7 @@ local function update(chunk, ety_list, ety_c, dt)
     for i = 1, ety_c do
         local ety = ety_list[i]
         local id = evolved.get(ety, cmp.GameobjectId)
-        go.delete(id, true)
+        pcall(go.delete, id, true)
     end
 end
 

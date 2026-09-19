@@ -13,7 +13,7 @@ local function update(chunk, ety_list, ety_c, dt)
         local figure_idx = math.random(#cfg.figures)
 
         local roll_cfg = cfg.figures[figure_idx];
-        evolved.set(entity, cmp.SourceFigure, roll_cfg)
+        evolved.set(entity, cmp.SourceFigureCfg, roll_cfg)
         evolved.set(entity, cmp.AttachFigure, roll_cfg)
     end
 end

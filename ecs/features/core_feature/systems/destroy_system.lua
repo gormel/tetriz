@@ -7,6 +7,7 @@ local filter = evolved
 
 local function update(chunk, ety_list, ety_c, dt)
     for i = 1, ety_c do
+        evolved.clear(ety_list[i])
         evolved.remove(ety_list[i])
     end
 end

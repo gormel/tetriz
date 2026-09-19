@@ -19,10 +19,14 @@ local function update(chunk, ety_list, ety_c, dt)
         local figure = evolved.get(entity, cmp.AttachFigure)
         local root_id = evolved.get(entity, gocmp.GameobjectId)
 
+        local tiles = {}
         for _, pos in ipairs(figure.points) do
             local tile = factory.create(cfg.tile.factory, vmath.vector3(pos.x * cfg.tile.size.x, pos.y * cfg.tile.size.y, 0))
             go.set_parent(tile, root_id, false)
+            table.insert(tiles, tile)
         end
+
+        evolved.set(entity, cmp.FigureView, tiles)
 
         evolved.remove(entity, cmp.AttachFigure)
     end

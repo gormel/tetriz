@@ -5,4 +5,5 @@ return {
     Draggable = evolved.id(),
     DragOffset = evolved.id(), --{x, y}
     BeginDrag = evolved.id(),
+    DragComplete = evolved.id(),
 }
