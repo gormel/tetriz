@@ -1,42 +1,56 @@
 local camera = require("orthographic.camera")
 local evolved = require("lib.evolved")
 local icmp = require("ecs.features.input_feature.components")
+local broadcast = require "ludobits.m.broadcast"
+local messages = require "cfg.messages"
 
 go.property("mask_sprite", msg.url("#sprite"))
 go.property("entity", 0)
 
 function init(self)
-	msg.post(".", "acquire_input_focus")
+	broadcast.register(messages.GAME_INPUT)
 end
 
-function on_input(self, action_id, action)
-	if not self.entity or not evolved.alive(self.entity) then
-		return
+---@package
+---@param message_id hash
+---@param message table
+---@param sender url
+function on_message(self, message_id, message, sender)
+	if message_id == messages.GAME_INPUT then
+		if not self.entity or not evolved.alive(self.entity) then
+			return
+		end
+		
+		local xy = message.xy
+
+		evolved.set(self.entity, icmp.InputPosition, { x = xy.x, y = xy.y })
+		
+		local size = go.get(self.mask_sprite, "size")
+		local pos = go.get_position()
+
+		if message.released then
+			evolved.set(self.entity, icmp.InputRelease, true)
+		end
+
+		local lu = pos - size / 2
+		local rd = pos + size / 2
+		local is_over = xy.x >= lu.x and xy.x <= rd.x
+						and xy.y >= lu.y and xy.y <= rd.y
+		
+		if is_over then
+			evolved.set(self.entity, icmp.InputOver, true)
+		else
+			evolved.remove(self.entity, icmp.InputOver)
+		end
+
+		if is_over and message.pressed then
+			evolved.set(self.entity, icmp.InputPress, true)
+		end
+
 	end
+end
 
-	local xy = camera.screen_to_world(nil, vmath.vector3(action.screen_x, action.screen_y, 0))
-
-	evolved.set(self.entity, icmp.InputPosition, { x = xy.x, y = xy.y })
-	
-	local size = go.get(self.mask_sprite, "size")
-	local pos = go.get_position()
-
-	if action.released then
-		evolved.set(self.entity, icmp.InputRelease, true)
-	end
-
-	local lu = pos - size / 2
-	local rd = pos + size / 2
-	local is_over = xy.x >= lu.x and xy.x <= rd.x
-					and xy.y >= lu.y and xy.y <= rd.y
-	
-	if is_over then
-		evolved.set(self.entity, icmp.InputOver, true)
-	else
-		evolved.remove(self.entity, icmp.InputOver)
-	end
-
-	if action_id == hash("touch") and is_over and action.pressed then
-		evolved.set(self.entity, icmp.InputPress, true)
-	end
+---@package
+function final(self)
+	broadcast.unregister(messages.GAME_INPUT)
 end

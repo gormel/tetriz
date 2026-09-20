@@ -12,7 +12,6 @@ local filter = evolved.builder()
 local function update(chunk, ety_list, ety_c, dt)
     for _, entity in ipairs(ety_list) do
         evolved.set(entity, ccmp.Destroy, true)
-        pprint("++++destroy", entity)
     end
 end
 

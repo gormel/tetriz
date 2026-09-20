@@ -10,6 +10,9 @@ return {
     },
     field = {
         url = "/field",
+        tile_factory = "/root#field_tile_fcatory",
+        sx = 9,
+        sy = 9,
     },
     figures = {
         {

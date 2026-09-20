@@ -11,16 +11,24 @@ instances {
   id: "logo_spawner"
   prototype: "/assets/prefabs/logo_spawner.go"
   position {
-    x: 486.0
-    y: 856.0
+    x: 474.0
+    y: 177.0
   }
 }
 instances {
   id: "logo_spawner1"
   prototype: "/assets/prefabs/logo_spawner.go"
   position {
-    x: 246.0
-    y: 531.0
+    x: 214.0
+    y: 177.0
+  }
+}
+instances {
+  id: "field"
+  prototype: "/assets/prefabs/field.go"
+  position {
+    x: 310.0
+    y: 724.0
   }
 }
 scale_along_z: 0
@@ -29,6 +37,10 @@ embedded_instances {
   data: "components {\n"
   "  id: \"main\"\n"
   "  component: \"/main/main.script\"\n"
+  "}\n"
+  "components {\n"
+  "  id: \"gameplay_input\"\n"
+  "  component: \"/input/gameplay_input.script\"\n"
   "}\n"
   "embedded_components {\n"
   "  id: \"background\"\n"
@@ -54,6 +66,12 @@ embedded_instances {
   "  id: \"figure_factory\"\n"
   "  type: \"factory\"\n"
   "  data: \"prototype: \\\"/assets/prefabs/figure.go\\\"\\n"
+  "\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"field_tile_fcatory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/assets/prefabs/filed_tile.go\\\"\\n"
   "\"\n"
   "}\n"
   ""

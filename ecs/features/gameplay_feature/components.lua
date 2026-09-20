@@ -9,4 +9,8 @@ return {
     AttachFigure = evolved.id(),
     FigureView = evolved.id(), --go_id[]
     FigureSourceRef = evolved.id(), --ety
+    CreateField = evolved.id(),
+    InitializeField = evolved.id(),
+    Field = evolved.id(), --tile ety[]
+    FieldTile = evolved.id(), --field ety
 }

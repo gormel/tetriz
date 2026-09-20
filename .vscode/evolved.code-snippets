@@ -4,6 +4,7 @@
     "prefix": "syst",
     "body": [
         "local evolved = require \"lib.evolved\"",
+        "local cfg = require \"cfg.cfg\"",
         "local cmp = require \"ecs.features.${1:feature}.components\"",
         "",
         "local filter = evolved.builder()",
@@ -24,5 +25,10 @@
       "\t${0}",
       "end"
     ]
+  },
+  "":{
+    "scope": "lua",
+    "prefix": "req",
+    "body": [ "local ${0} = require \"${1}\"" ]
   }
 }

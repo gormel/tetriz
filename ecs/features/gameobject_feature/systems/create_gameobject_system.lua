@@ -12,8 +12,10 @@ local function update(chunk, ety_list, ety_c, dt)
         evolved.remove(ety, cmp.GameobjectCreate)
 
         local id = factory.create(create.url, create.position)
-        evolved.set(ety, cmp.GameobjectId, id)
-        pcall(go.set, msg.url(nil, id, "input"), "entity", ety)
+        if create.parent_id then
+            go.set_parent(id, create.parent_id, false)
+        end
+        evolved.set(ety, cmp.GameobjectLink, id)
     end
 end
 

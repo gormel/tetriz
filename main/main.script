@@ -12,15 +12,21 @@ local function use_feature(self, feature)
 	end
 end
 
+local function create_field(path)
+	local id = go.get_id(path)
+
+	local ety = evolved.id()
+	evolved.set(ety, gpcmp.CreateField, id)
+end
+
 local function create(path)
 	local id = go.get_id(path)
 
 	local ety = evolved.id()
-	evolved.set(ety, gcmp.GameobjectId, id)
+	evolved.set(ety, gcmp.GameobjectLink, id)
 	evolved.set(ety, gpcmp.Source, msg.url("/root#figure_factory"))
 	evolved.set(ety, gpcmp.RollFigure, true)
 	--evolved.set(ety, dcmp.Draggable, true)
-	go.set(msg.url(nil, id, "input"), "entity", ety)
 end
 
 function init(self)
@@ -36,6 +42,7 @@ function init(self)
 
 	create("/logo_spawner")
 	create("/logo_spawner1")
+	create_field("/field")
 
 	self.global_input = icmp.InputAction
 	evolved.set(self.global_input, icmp.InputAction, true)
