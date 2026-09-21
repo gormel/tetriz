@@ -14,9 +14,11 @@ local function update(chunk, ety_list, ety_c, dt)
     for _, entity in ipairs(ety_list) do
         local id = evolved.get(entity, gocmp.GameobjectId)
 
-        evolved.set(entity, cmp.Disabled)
-        go.set(msg.url(nil, id, nil), "position.z", -2)
-        --msg.post(msg.url(nil, id, cfg.field.sprite_fragment), "disable")
+        local url = msg.url(nil, id, nil)
+        local z = go.get(url, "position.z")
+
+        evolved.set(entity, cmp.Disabled, z)
+        go.set(url, "position.z", -2)
     end
 end
 
