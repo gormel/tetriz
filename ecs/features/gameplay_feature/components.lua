@@ -13,4 +13,5 @@ return {
     InitializeField = evolved.id(),
     Field = evolved.id(), --tile ety[]
     FieldTile = evolved.id(), --field ety
+    Disabled = evolved.id(),
 }

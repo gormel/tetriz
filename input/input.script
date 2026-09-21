@@ -26,7 +26,7 @@ function on_message(self, message_id, message, sender)
 		evolved.set(self.entity, icmp.InputPosition, { x = xy.x, y = xy.y })
 		
 		local size = go.get(self.mask_sprite, "size")
-		local pos = go.get_position()
+		local pos = go.get_world_position()
 
 		if message.released then
 			evolved.set(self.entity, icmp.InputRelease, true)

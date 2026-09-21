@@ -30,8 +30,6 @@ local function create(path)
 end
 
 function init(self)
-	msg.post(".", "acquire_input_focus")
-
 	self.systems = {}
 	
 	use_feature(self, require("ecs.features.gameobject_feature.feature").process)

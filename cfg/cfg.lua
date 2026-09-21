@@ -11,6 +11,7 @@ return {
     field = {
         url = "/field",
         tile_factory = "/root#field_tile_fcatory",
+        sprite_fragment = "sprite",
         sx = 9,
         sy = 9,
     },

@@ -7,5 +7,7 @@ return {
         require("ecs.features.gameplay_feature.systems.remove_figure_system"),
         require("ecs.features.gameplay_feature.systems.create_field_system"),
         require("ecs.features.gameplay_feature.systems.init_field_system"),
+        require("ecs.features.gameplay_feature.systems.on_hover_enable_system"),
+        require("ecs.features.gameplay_feature.systems.on_not_hover_disable_system"),
     }
 }
