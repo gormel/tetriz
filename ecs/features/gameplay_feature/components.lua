@@ -2,16 +2,19 @@ local evolved = require("lib.evolved")
 
 return {
     Source = evolved.id(), --url
-    PlaceInProgress = evolved.id(),
     FigureCfg = evolved.id(), --cfg
     RollFigure = evolved.id(),
     SourceFigureCfg = evolved.id(), --cfg
-    AttachFigure = evolved.id(),
+    AttachFigure = evolved.id(), --{ cfg: cfg, factory: url }
     FigureView = evolved.id(), --go_id[]
-    FigureSourceRef = evolved.id(), --ety
+    FigurePlaceholder = evolved.id(),
+    FigureSourceRef = evolved.id(), --ety (figure)
     CreateField = evolved.id(),
     InitializeField = evolved.id(),
-    Field = evolved.id(), --tile ety[]
-    FieldTile = evolved.id(), --field ety
-    Disabled = evolved.id(),
+    Field = evolved.id(), --tile_ety[]
+    FieldTile = evolved.id(), --{ field: ety, body: ety, idx: int }
+    FieldTileBusy = evolved.id(),
+    FieldTileBody = evolved.id(), --ety (tile)
+    PlacingFigure = evolved.id(), --{ figure: ety, placeholder: ety }; singletone
+    TargetTile = evolved.id(), --ety; singletone
 }

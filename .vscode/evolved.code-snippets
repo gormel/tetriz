@@ -5,16 +5,20 @@
     "body": [
         "local evolved = require \"lib.evolved\"",
         "local cfg = require \"cfg.cfg\"",
-        "local cmp = require \"ecs.features.${1:feature}.components\"",
+        "local utils = require \"cfg.utils\"",
+        "local cmp = require \"ecs.features.${2:feature}.components\"",
         "",
         "local filter = evolved.builder()",
-        "\t:include(${2:component})",
+        "\t:include(${0})",
         "",
         "local function update(chunk, ety_list, ety_c, dt)",
-        "\t${0}",
+        "\t",
         "end",
         "",
-        "return filter:execute(update):build()"
+        "return {",
+        "\tname = \"${1:system_name}\",",
+        "\tfilter = filter:execute(update):build(),",
+        "}"
     ]
   },
   "for_filter":{
@@ -26,9 +30,9 @@
       "end"
     ]
   },
-  "":{
+  "require":{
     "scope": "lua",
-    "prefix": "req",
-    "body": [ "local ${0} = require \"${1}\"" ]
+    "prefix": "rcmp",
+    "body": [ "local ${1} = require \"ecs.features.${0}.components\"" ]
   }
 }

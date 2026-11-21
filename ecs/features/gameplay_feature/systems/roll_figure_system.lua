@@ -14,8 +14,11 @@ local function update(chunk, ety_list, ety_c, dt)
 
         local roll_cfg = cfg.figures[figure_idx];
         evolved.set(entity, cmp.SourceFigureCfg, roll_cfg)
-        evolved.set(entity, cmp.AttachFigure, roll_cfg)
+        evolved.set(entity, cmp.AttachFigure, { cfg = roll_cfg, factory = cfg.field.tile_factory })
     end
 end
 
-return filter:execute(update):build()
+return {
+    name = "roll_figure_system",
+    filter = filter:execute(update):build(),
+}

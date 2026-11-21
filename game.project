@@ -51,3 +51,9 @@ velocity_threshold = 100.0
 [html5]
 scale_mode = stretch
 
+[factory]
+max_count = 256
+
+[sprite]
+max_count = 256
+

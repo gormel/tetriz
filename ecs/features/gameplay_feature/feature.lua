@@ -4,10 +4,12 @@ return {
         require("ecs.features.gameplay_feature.systems.roll_figure_system"),
         require("ecs.features.gameplay_feature.systems.attach_figure_system"),
         require("ecs.features.gameplay_feature.systems.begin_place_system"),
-        require("ecs.features.gameplay_feature.systems.remove_figure_system"),
         require("ecs.features.gameplay_feature.systems.create_field_system"),
         require("ecs.features.gameplay_feature.systems.init_field_system"),
-        require("ecs.features.gameplay_feature.systems.on_hover_enable_system"),
-        require("ecs.features.gameplay_feature.systems.on_not_hover_disable_system"),
+        require("ecs.features.gameplay_feature.systems.place_figure_system"),
+        require("ecs.features.gameplay_feature.systems.remove_figure_system"),
+        require("ecs.features.gameplay_feature.systems.target_tile_reset_system"),
+        require("ecs.features.gameplay_feature.systems.target_tile_system"),
+        require("ecs.features.gameplay_feature.systems.place_placeholder_system"),
     }
 }

@@ -1,7 +1,9 @@
 local evolved = require "lib.evolved"
-local dcmp = require("ecs.features.drag_feature.components")
-local gcmp = require("ecs.features.gameobject_feature.components")
-local icmp = require("ecs.features.input_feature.components")
+local cfg = require "cfg.cfg"
+local dcmp = require "ecs.features.drag_feature.components"
+local gcmp = require "ecs.features.gameobject_feature.components"
+local icmp = require "ecs.features.input_feature.components"
+local gocmp = require "ecs.features.gameobject_feature.components"
 local cmp = require "ecs.features.gameplay_feature.components"
 
 
@@ -28,10 +30,20 @@ local function update(chunk, ety_list, ety_c, dt)
         evolved.set(in_drag, gcmp.GameobjectCreate, { url = url, position = pos })
         evolved.set(in_drag, dcmp.BeginDrag, { dx = dx, dy = dy, dz = pos.z })
         evolved.set(in_drag, dcmp.Draggable, true)
-        evolved.set(in_drag, cmp.AttachFigure, figure_cfg)
-        evolved.set(in_drag, cmp.FigureCfg, figure_cfg)
+        evolved.set(in_drag, cmp.AttachFigure, { cfg = figure_cfg, factory = cfg.field.tile_factory })
         evolved.set(in_drag, cmp.FigureSourceRef, entity)
+
+        local placeholder = evolved.id()
+        evolved.set(placeholder, gocmp.Disable)
+        evolved.set(placeholder, cmp.FigurePlaceholder, true)
+        evolved.set(placeholder, gcmp.GameobjectCreate, { url = url, position = pos })
+        evolved.set(placeholder, cmp.AttachFigure, { cfg = figure_cfg, factory = cfg.field.tile_placeholder_factory })
+
+        evolved.set(cmp.PlacingFigure, cmp.PlacingFigure, { figure = in_drag, placeholder = placeholder })
     end
 end
 
-return filter:execute(update):build()
+return {
+    name = "begin_place_system",
+    filter = filter:execute(update):build(),
+}

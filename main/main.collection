@@ -13,6 +13,7 @@ instances {
   position {
     x: 474.0
     y: 177.0
+    z: 0.1
   }
 }
 instances {
@@ -21,6 +22,7 @@ instances {
   position {
     x: 214.0
     y: 177.0
+    z: 0.1
   }
 }
 instances {
@@ -71,7 +73,13 @@ embedded_instances {
   "embedded_components {\n"
   "  id: \"field_tile_fcatory\"\n"
   "  type: \"factory\"\n"
-  "  data: \"prototype: \\\"/assets/prefabs/filed_tile.go\\\"\\n"
+  "  data: \"prototype: \\\"/assets/prefabs/field_tile.go\\\"\\n"
+  "\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"field_tile_placeholder_fcatory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/assets/prefabs/filed_tile_placeholder.go\\\"\\n"
   "\"\n"
   "}\n"
   ""

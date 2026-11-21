@@ -17,11 +17,12 @@ local function update(chunk, ety_list, ety_c, dt)
         end
 
         local figure = evolved.get(entity, cmp.AttachFigure)
+        evolved.set(entity, cmp.FigureCfg, figure.cfg)
         local root_id = evolved.get(entity, gocmp.GameobjectId)
 
         local tiles = {}
-        for _, pos in ipairs(figure.points) do
-            local tile = factory.create(cfg.tile.factory, vmath.vector3(pos.x * cfg.tile.size.x, pos.y * cfg.tile.size.y, 0))
+        for _, pos in ipairs(figure.cfg.points) do
+            local tile = factory.create(figure.factory, vmath.vector3(pos.x * cfg.tile.size.x, pos.y * cfg.tile.size.y, 0))
             go.set_parent(tile, root_id, false)
             table.insert(tiles, tile)
         end
@@ -32,4 +33,7 @@ local function update(chunk, ety_list, ety_c, dt)
     end
 end
 
-return filter:execute(update):build()
+return {
+    name = "attach_figure_system",
+    filter = filter:execute(update):build(),
+}

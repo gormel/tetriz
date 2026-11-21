@@ -10,4 +10,7 @@ local function update(chunk, ety_list, ety_c, dt)
     end
 end
 
-return filter:execute(update):build()
+return {
+    name = "clear_drag_complete_system",
+    filter = filter:execute(update):build(),
+}

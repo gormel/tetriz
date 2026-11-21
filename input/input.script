@@ -23,6 +23,7 @@ function on_message(self, message_id, message, sender)
 		
 		local xy = message.xy
 
+		evolved.set(self.entity, icmp.InputAction, true)
 		evolved.set(self.entity, icmp.InputPosition, { x = xy.x, y = xy.y })
 		
 		local size = go.get(self.mask_sprite, "size")

@@ -23,4 +23,7 @@ local function update(chunk, ety_list, ety_c, dt)
     end
 end
 
-return filter:execute(update):build()
+return {
+    name = "begin_drag_by_input_system",
+    filter = filter:execute(update):build(),
+}

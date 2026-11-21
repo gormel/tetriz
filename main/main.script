@@ -8,7 +8,8 @@ local cfg = require("cfg.cfg")
 
 local function use_feature(self, feature)
 	for _, system in ipairs(feature) do
-		self.systems[#self.systems + 1] = system
+		local idx = #self.systems + 1
+		self.systems[idx] = system
 	end
 end
 
@@ -36,19 +37,25 @@ function init(self)
 	use_feature(self, require("ecs.features.drag_feature.feature").process)
 	use_feature(self, require("ecs.features.gameplay_feature.feature").process)
 	use_feature(self, require("ecs.features.gameobject_feature.feature").postprocess)
+	use_feature(self, require("ecs.features.input_feature.feature").postprocess)
 	use_feature(self, require("ecs.features.core_feature.feature").postprocess)
 
 	create("/logo_spawner")
 	create("/logo_spawner1")
 	create_field("/field")
-
-	self.global_input = icmp.InputAction
-	evolved.set(self.global_input, icmp.InputAction, true)
 end
 
 function update(self, dt)
 	for i = 1, #self.systems do
-		evolved.process_with(self.systems[i], dt)
+		local system = self.systems[i]
+		if not system.disabled then
+			local ok, err = pcall(evolved.process_with, system.filter, dt)
+			if not ok then
+				pprint("System ["..system.name.."] has error: "..err)
+				pprint("System will be disabled!")
+				system.disabled = true
+			end
+		end
 	end
 end
 

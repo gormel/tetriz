@@ -20,14 +20,18 @@ local function update(chunk, ety_list, ety_c, dt)
                 local posy = y - halfy
 
                 local tile = evolved.id()
-                evolved.set(tile, gocmp.GameobjectCreate, {
+                table.insert(tiles, tile)
+
+                local body = evolved.id()
+                evolved.set(body, cmp.FieldTileBody, tile)
+                evolved.set(body, gocmp.Disable)
+                evolved.set(body, gocmp.GameobjectCreate, {
                     url = cfg.field.tile_factory,
                     position = vmath.vector3(posx * cfg.tile.size.x, posy * cfg.tile.size.y, 0),
                     parent_id = id,
                 })
-                evolved.set(tile, cmp.FieldTile, entity)
 
-                table.insert(tiles, tile)
+                evolved.set(tile, cmp.FieldTile, { field = entity, body = body, idx = #tiles })
             end
         end
 
@@ -37,4 +41,7 @@ local function update(chunk, ety_list, ety_c, dt)
     end
 end
 
-return filter:execute(update):build()
+return {
+    name = "init_field_system",
+    filter = filter:execute(update):build(),
+}

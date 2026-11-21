@@ -1,6 +1,12 @@
 return {
+    layers = {
+        DISABLED = -2,
+        BACKGROUND = -0.9,
+        TILE_PLACEHOLDER = -0.5,
+        FIELD_TILE = 0,
+        PLACING_TILE = 0.5,
+    },
     tile = {
-        factory = "/root#tile_factory",
         size = { x = 30, y = 30 },
     },
     spawners = {
@@ -11,6 +17,7 @@ return {
     field = {
         url = "/field",
         tile_factory = "/root#field_tile_fcatory",
+        tile_placeholder_factory = "/root#field_tile_placeholder_fcatory",
         sprite_fragment = "sprite",
         sx = 9,
         sy = 9,
