@@ -20,36 +20,21 @@ local function update(chunk, ety_list, ety_c, dt)
             local tile = evolved.get(tile_ety, cmp.FieldTile)
             local field = evolved.get(tile.field, cmp.Field)
             local x, y = utils.field_xy(tile.idx)
-            local pass = true
-            for _, dxdy in ipairs(figure_cfg.points) do
-                local tx = x + dxdy.x
-                local ty = y + dxdy.y
-                if tx < 1 or tx > cfg.field.sx then
-                    pass = false
-                    break
-                end
 
-                if ty < 1 or ty > cfg.field.sy then
-                    pass = false
-                    break
-                end
-
-                local target_tile_ety = field[utils.field_idx(tx, ty)]
-                if (evolved.has(target_tile_ety, cmp.FieldTileBusy)) then
-                    pass = false
-                    break
-                end
-            end
-
-            if pass then
+            if utils.can_place_figure(figure_cfg, x, y, field) then
                 for _, dxdy in ipairs(figure_cfg.points) do
                     local idx = utils.field_idx(x + dxdy.x, y + dxdy.y)
                     local target_tile_ety = field[idx]
                     local target_tile = evolved.get(target_tile_ety, cmp.FieldTile)
                     evolved.set(target_tile.body, gocmp.Enable)
                     evolved.set(target_tile_ety, cmp.FieldTileBusy, true)
-
                 end
+
+                if evolved.has(figure.figure, cmp.FigureSourceRef) then
+                    local source_ety = evolved.get(figure.figure, cmp.FigureSourceRef)
+                    evolved.set(source_ety, cmp.RollFigure, true)
+                end
+
             end
         end
     end
