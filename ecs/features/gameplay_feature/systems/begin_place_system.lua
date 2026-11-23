@@ -36,7 +36,7 @@ local function update(chunk, ety_list, ety_c, dt)
         local placeholder = evolved.id()
         evolved.set(placeholder, gocmp.Disable)
         evolved.set(placeholder, cmp.FigurePlaceholder, true)
-        evolved.set(placeholder, gcmp.GameobjectCreate, { url = url, position = pos })
+        evolved.set(placeholder, gcmp.GameobjectCreate, { url = url, position = pos, scale = vmath.vector3(1.5, 1.5, 1) })
         evolved.set(placeholder, cmp.AttachFigure, { cfg = figure_cfg, factory = cfg.field.tile_placeholder_factory })
 
         evolved.set(cmp.PlacingFigure, cmp.PlacingFigure, { figure = in_drag, placeholder = placeholder })

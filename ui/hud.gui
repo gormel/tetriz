@@ -5,7 +5,7 @@ fonts {
 }
 nodes {
   position {
-    x: 571.0
+    x: 532.0
     y: 1087.0
   }
   size {
@@ -13,7 +13,7 @@ nodes {
     y: 25.0
   }
   type: TYPE_TEXT
-  text: "100500"
+  text: "Score: 0"
   font: "hud"
   id: "score_txt"
   outline {

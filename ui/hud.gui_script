@@ -7,7 +7,6 @@ local SCHEME = {
 
 function init(self)
 	self.score_text = gui.get_node(SCHEME.score)
-	print(self.score_text)
 
 	broadcast.register(messages.SET_SCORE)
 end
@@ -21,7 +20,15 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == messages.SET_SCORE then
-		gui.set_text(self.score_text, message.value)
+		gui.set_text(self.score_text, "Score: "..message.value)
+		local clone_node = gui.clone(self.score_text)
+		gui.set_text(clone_node, "+"..message.add_value)
+		local clone_pos = gui.get_position(clone_node)
+		gui.set_color(clone_node, vmath.vector3(0, 1, 0))
+		gui.animate(clone_node, "position.y", clone_pos.y + 100, gui.EASING_INQUAD, 1, 0, function(self, node)
+			gui.delete_node(node)
+		end)
+		gui.animate(clone_node, "color.w", 0, gui.EASING_LINEAR, 1, 0)
 	end
 end
 
