@@ -5,6 +5,11 @@ return {
         TILE_PLACEHOLDER = -0.5,
         FIELD_TILE = 0,
         PLACING_TILE = 0.5,
+        FIELD_GRID = 0.6,
+    },
+    scores = {
+        tile = 100,
+        combo = 1.5,
     },
     tile = {
         size = { x = 30, y = 30 },
@@ -36,10 +41,64 @@ return {
             weight = 1,
             points = {
                 { x = 0, y = 0 },
+                { x = -1, y = 0 },
+                { x = 0, y = -1 },
+            },
+            factory = "/root#figure_factory",
+        },
+        {
+            weight = 1,
+            points = {
+                { x = 0, y = 0 },
+                { x = 1, y = 0 },
+                { x = 0, y = -1 },
+            },
+            factory = "/root#figure_factory",
+        },
+        {
+            weight = 1,
+            points = {
+                { x = 0, y = 0 },
+                { x = -1, y = 0 },
+                { x = 0, y = 1 },
+            },
+            factory = "/root#figure_factory",
+        },
+        {
+            weight = 1,
+            points = {
+                { x = 0, y = 0 },
                 { x = 1, y = 0 },
                 { x = -1, y = 0 },
             },
             factory = "/root#figure_factory",
         },
+        {
+            weight = 1,
+            points = {
+                { x = 0, y = -1 },
+                { x = 0, y = 0 },
+                { x = 0, y = 1 },
+            },
+            factory = "/root#figure_factory"
+        },
+        {
+            weight = 1,
+            points = {
+                { x = -1, y = -1 },
+                { x = 0, y = 0 },
+                { x = 1, y = 1 },
+            },
+            factory = "/root#figure_factory"
+        },
+        {
+            weight = 1,
+            points = {
+                { x = 1, y = -1 },
+                { x = 0, y = 0 },
+                { x = -1, y = 1 },
+            },
+            factory = "/root#figure_factory"
+        }
     }
 }

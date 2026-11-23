@@ -11,7 +11,7 @@ instances {
   id: "logo_spawner"
   prototype: "/assets/prefabs/logo_spawner.go"
   position {
-    x: 474.0
+    x: 334.0
     y: 177.0
     z: 0.1
   }
@@ -20,7 +20,7 @@ instances {
   id: "logo_spawner1"
   prototype: "/assets/prefabs/logo_spawner.go"
   position {
-    x: 214.0
+    x: 169.0
     y: 177.0
     z: 0.1
   }
@@ -33,6 +33,14 @@ instances {
     y: 724.0
   }
 }
+instances {
+  id: "logo_spawner2"
+  prototype: "/assets/prefabs/logo_spawner.go"
+  position {
+    x: 499.0
+    y: 177.0
+  }
+}
 scale_along_z: 0
 embedded_instances {
   id: "root"
@@ -43,6 +51,10 @@ embedded_instances {
   "components {\n"
   "  id: \"gameplay_input\"\n"
   "  component: \"/input/gameplay_input.script\"\n"
+  "}\n"
+  "components {\n"
+  "  id: \"hud\"\n"
+  "  component: \"/ui/hud.gui\"\n"
   "}\n"
   "embedded_components {\n"
   "  id: \"background\"\n"
@@ -81,6 +93,22 @@ embedded_instances {
   "  type: \"factory\"\n"
   "  data: \"prototype: \\\"/assets/prefabs/filed_tile_placeholder.go\\\"\\n"
   "\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"field_grid\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"field_grid\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/main/main.atlas\\\"\\n"
+  "}\\n"
+  "\"\n"
+  "  position {\n"
+  "    x: -10.0\n"
+  "    y: 156.0\n"
+  "    z: 0.6\n"
+  "  }\n"
   "}\n"
   ""
   position {

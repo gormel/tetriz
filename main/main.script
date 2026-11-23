@@ -42,7 +42,10 @@ function init(self)
 
 	create("/logo_spawner")
 	create("/logo_spawner1")
+	create("/logo_spawner2")
 	create_field("/field")
+
+	evolved.set(gpcmp.Score, gpcmp.Score, 0)
 end
 
 function update(self, dt)

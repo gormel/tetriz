@@ -17,4 +17,7 @@ return {
     FieldTileBody = evolved.id(), --ety (tile)
     PlacingFigure = evolved.id(), --{ figure: ety, placeholder: ety }; singletone
     TargetTile = evolved.id(), --ety; singletone
+    TryCollapseField = evolved.id(),
+    Score = evolved.id(), --value
+    AddScore = evolved.id(), --value
 }

@@ -30,6 +30,8 @@ local function update(chunk, ety_list, ety_c, dt)
                     evolved.set(target_tile_ety, cmp.FieldTileBusy, true)
                 end
 
+                evolved.set(tile.field, cmp.TryCollapseField, true)
+
                 if evolved.has(figure.figure, cmp.FigureSourceRef) then
                     local source_ety = evolved.get(figure.figure, cmp.FigureSourceRef)
                     evolved.set(source_ety, cmp.RollFigure, true)
