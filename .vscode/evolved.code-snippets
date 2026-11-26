@@ -25,7 +25,8 @@
     "scope": "lua",
     "prefix": "forf",
     "body": [
-      "for _, entity in ipairs(ety_list) do",
+      "for i = ety_c, 1, -1 do",
+      "\tlocal entity = ety_list[i]",
       "\t${0}",
       "end"
     ]

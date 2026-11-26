@@ -6,7 +6,7 @@ local filter = evolved
     :include(cmp.Destroy)
 
 local function update(chunk, ety_list, ety_c, dt)
-    for i = 1, ety_c do
+    for i = ety_c, 1, -1 do
         evolved.clear(ety_list[i])
         evolved.remove(ety_list[i])
     end

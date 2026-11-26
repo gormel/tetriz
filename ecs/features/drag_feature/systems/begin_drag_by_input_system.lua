@@ -10,16 +10,19 @@ local filter = evolved.builder()
     :include(gcmp.GameobjectId)
 
 local function update(chunk, ety_list, ety_c, dt)
-    for _, ety in ipairs(ety_list) do
+    for i = ety_c, 1, -1 do
+        local ety = ety_list[i]
         evolved.remove(ety, icmp.InputPress)
 
         local id = evolved.get(ety, gcmp.GameobjectId)
-        local ipos = evolved.get(ety, icmp.InputPosition)
-        local pos = go.get_position(id)
-        local dx = pos.x - ipos.x
-        local dy = pos.y - ipos.y
+        if go.exists(id) then
+            local ipos = evolved.get(ety, icmp.InputPosition)
+            local pos = go.get_position(id)
+            local dx = pos.x - ipos.x
+            local dy = pos.y - ipos.y
 
-        evolved.set(ety, cmp.BeginDrag, { dx = dx, dy = dy, dz = pos.z })
+            evolved.set(ety, cmp.BeginDrag, { dx = dx, dy = dy, dz = pos.z })
+        end
     end
 end
 

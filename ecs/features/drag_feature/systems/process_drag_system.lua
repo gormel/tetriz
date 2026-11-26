@@ -11,14 +11,17 @@ local filter = evolved
     :include(gcmp.GameobjectId)
 
 local function update(chunk, ety_list, ety_c, dt)
-    for _, entity in ipairs(ety_list) do
+    for i = ety_c, 1, -1 do
+        local entity = ety_list[i]
         local id = evolved.get(entity, gcmp.GameobjectId)
         
-        local ipos = evolved.get(entity, icmp.InputPosition)
-        local dxy = evolved.get(entity, cmp.DragOffset)
+        if go.exists(id) then
+            local ipos = evolved.get(entity, icmp.InputPosition)
+            local dxy = evolved.get(entity, cmp.DragOffset)
 
-        local new_pos = vmath.vector3(ipos.x + dxy.x, ipos.y + dxy.y, dxy.z)
-        go.set_position(new_pos, id)
+            local new_pos = vmath.vector3(ipos.x + dxy.x, ipos.y + dxy.y, dxy.z)
+            go.set_position(new_pos, id)
+        end
 
         evolved.remove(entity, icmp.InputPosition)
     end

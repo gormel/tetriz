@@ -11,7 +11,8 @@ local filter = evolved.builder()
     :include(icmp.InputOver)
 
 local function update(chunk, ety_list, ety_c, dt)
-    for _, entity in ipairs(ety_list) do
+    for i = ety_c, 1, -1 do
+        local entity = ety_list[i]
         evolved.remove(entity, icmp.InputRelease)
         if evolved.has(cmp.PlacingFigure, cmp.PlacingFigure) then
             local figure = evolved.get(cmp.PlacingFigure, cmp.PlacingFigure)
@@ -26,7 +27,7 @@ local function update(chunk, ety_list, ety_c, dt)
                     local idx = utils.field_idx(x + dxdy.x, y + dxdy.y)
                     local target_tile_ety = field[idx]
                     local target_tile = evolved.get(target_tile_ety, cmp.FieldTile)
-                    evolved.set(target_tile.body, gocmp.Enable)
+                    evolved.set(target_tile.body, gocmp.SetLayer, cfg.layers.FIELD_TILE)
                     evolved.set(target_tile_ety, cmp.FieldTileBusy, true)
                 end
 

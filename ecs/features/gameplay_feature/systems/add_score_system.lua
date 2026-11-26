@@ -10,7 +10,8 @@ local filter = evolved.builder()
     :include(cmp.AddScore)
 
 local function update(chunk, ety_list, ety_c, dt)
-    for _, entity in ipairs(ety_list) do
+    for i = ety_c, 1, -1 do
+        local entity = ety_list[i]
         local add_value = evolved.get(entity, cmp.AddScore)
         local value = evolved.get(entity, cmp.Score)
         evolved.set(entity, cmp.Score, value + add_value)

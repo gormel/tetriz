@@ -6,7 +6,7 @@ local filter = evolved
     :include(cmp.GameobjectCreate)
 
 local function update(chunk, ety_list, ety_c, dt)
-    for i = 1, ety_c do
+    for i = ety_c, 1, -1 do
         local ety = ety_list[i]
         local create = evolved.get(ety, cmp.GameobjectCreate)
         evolved.remove(ety, cmp.GameobjectCreate)
@@ -16,6 +16,7 @@ local function update(chunk, ety_list, ety_c, dt)
             go.set_parent(id, create.parent_id, false)
         end
         evolved.set(ety, cmp.GameobjectLink, id)
+        evolved.set(ety, cmp.GameobjectSource, create.url)
     end
 end
 

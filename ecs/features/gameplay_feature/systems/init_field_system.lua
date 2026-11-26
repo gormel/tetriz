@@ -8,7 +8,8 @@ local filter = evolved.builder()
     :include(gocmp.GameobjectId)
 
 local function update(chunk, ety_list, ety_c, dt)
-    for _, entity in ipairs(ety_list) do
+    for i = ety_c, 1, -1 do
+        local entity = ety_list[i]
         local id = evolved.get(entity, gocmp.GameobjectId)
 
         local tiles = {}
@@ -24,7 +25,7 @@ local function update(chunk, ety_list, ety_c, dt)
 
                 local body = evolved.id()
                 evolved.set(body, cmp.FieldTileBody, tile)
-                evolved.set(body, gocmp.Disable)
+                evolved.set(body, gocmp.SetLayer, cfg.layers.DISABLED)
                 evolved.set(body, gocmp.GameobjectCreate, {
                     url = cfg.field.tile_factory,
                     position = vmath.vector3(posx * cfg.tile.size.x, posy * cfg.tile.size.y, 0),

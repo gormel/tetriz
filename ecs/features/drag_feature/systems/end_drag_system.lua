@@ -8,7 +8,7 @@ local filter = evolved
     :include(icmp.InputRelease)
 
 local function update(chunk, ety_list, ety_c, dt)
-    for i = 1, ety_c do
+    for i = ety_c, 1, -1 do
         local entity = ety_list[i]
         evolved.remove(entity, icmp.InputRelease)
 

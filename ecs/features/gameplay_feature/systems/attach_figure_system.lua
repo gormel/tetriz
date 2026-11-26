@@ -8,11 +8,14 @@ local filter = evolved.builder()
     :include(gocmp.GameobjectId)
 
 local function update(chunk, ety_list, ety_c, dt)
-    for _, entity in ipairs(ety_list) do
+    for i = ety_c, 1, -1 do
+        local entity = ety_list[i]
         if evolved.has(entity, cmp.FigureView) then
             local ids = evolved.get(entity, cmp.FigureView)
-            for i, id in ipairs(ids) do
-                go.delete(id, true)
+            for _, id in ipairs(ids) do
+                if go.exists(id) then
+                    go.delete(id, true)
+                end
             end
         end
 
@@ -20,14 +23,16 @@ local function update(chunk, ety_list, ety_c, dt)
         evolved.set(entity, cmp.FigureCfg, figure.cfg)
         local root_id = evolved.get(entity, gocmp.GameobjectId)
 
-        local tiles = {}
-        for _, pos in ipairs(figure.cfg.points) do
-            local tile = factory.create(figure.factory, vmath.vector3(pos.x * cfg.tile.size.x, pos.y * cfg.tile.size.y, 0))
-            go.set_parent(tile, root_id, false)
-            table.insert(tiles, tile)
-        end
+        if go.exists(root_id) then
+            local tiles = {}
+            for _, pos in ipairs(figure.cfg.points) do
+                local tile = factory.create(figure.factory, vmath.vector3(pos.x * cfg.tile.size.x, pos.y * cfg.tile.size.y, 0))
+                go.set_parent(tile, root_id, false)
+                table.insert(tiles, tile)
+            end
 
-        evolved.set(entity, cmp.FigureView, tiles)
+            evolved.set(entity, cmp.FigureView, tiles)
+        end
 
         evolved.remove(entity, cmp.AttachFigure)
     end

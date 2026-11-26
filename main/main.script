@@ -20,14 +20,27 @@ local function create_field(path)
 	evolved.set(ety, gpcmp.CreateField, id)
 end
 
-local function create(path)
+local function create_figure_spawner(path)
 	local id = go.get_id(path)
 
 	local ety = evolved.id()
 	evolved.set(ety, gcmp.GameobjectLink, id)
-	evolved.set(ety, gpcmp.Source, msg.url("/root#figure_factory"))
+	evolved.set(ety, gpcmp.FigureSource, msg.url("/root#figure_factory"))
 	evolved.set(ety, gpcmp.RollFigure, true)
-	--evolved.set(ety, dcmp.Draggable, true)
+end
+
+local function link_bg(path)
+	local bg_id = go.get_id(path)
+	local bg_ety = evolved.id()
+	evolved.set(bg_ety, gcmp.GameobjectLink, bg_id)
+	evolved.set(bg_ety, gcmp.SetLayer, cfg.layers.BACKGROUND)
+end
+
+local function link_field_grid(path)
+	local bg_id = go.get_id(path)
+	local bg_ety = evolved.id()
+	evolved.set(bg_ety, gcmp.GameobjectLink, bg_id)
+	evolved.set(bg_ety, gcmp.SetLayer, cfg.layers.FIELD_GRID)
 end
 
 function init(self)
@@ -36,14 +49,19 @@ function init(self)
 	use_feature(self, require("ecs.features.gameobject_feature.feature").process)
 	use_feature(self, require("ecs.features.drag_feature.feature").process)
 	use_feature(self, require("ecs.features.gameplay_feature.feature").process)
+	
 	use_feature(self, require("ecs.features.gameobject_feature.feature").postprocess)
 	use_feature(self, require("ecs.features.input_feature.feature").postprocess)
 	use_feature(self, require("ecs.features.core_feature.feature").postprocess)
 
-	create("/logo_spawner")
-	create("/logo_spawner1")
-	create("/logo_spawner2")
+	link_bg("/background")
+	link_field_grid("/field_grid")
+
 	create_field("/field")
+
+	create_figure_spawner("/logo_spawner")
+	create_figure_spawner("/logo_spawner1")
+	create_figure_spawner("/logo_spawner2")
 
 	evolved.set(gpcmp.Score, gpcmp.Score, 0)
 end

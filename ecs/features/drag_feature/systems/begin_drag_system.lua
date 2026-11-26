@@ -10,7 +10,8 @@ local filter = evolved
     :include(gcmp.GameobjectId)
 
 local function update(chunk, ety_list, ety_c, dt)
-    for _, ety in ipairs(ety_list) do
+    for i = ety_c, 1, -1 do
+        local ety = ety_list[i]
         local begin = evolved.get(ety, cmp.BeginDrag)
         evolved.remove(ety, cmp.BeginDrag)
 

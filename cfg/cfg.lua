@@ -3,9 +3,10 @@ return {
         DISABLED = -2,
         BACKGROUND = -0.9,
         TILE_PLACEHOLDER = -0.5,
+        FIELD_BG = -0.6,
         FIELD_TILE = 0,
-        PLACING_TILE = 0.5,
-        FIELD_GRID = 0.6,
+        FIELD_GRID = 0.5,
+        PLACING_TILE = 0.6,
     },
     scores = {
         tile = 100,

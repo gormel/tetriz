@@ -82,7 +82,8 @@ local function collect_square(field, _x, _y, tiles)
 end
 
 local function update(chunk, ety_list, ety_c, dt)
-    for _, entity in ipairs(ety_list) do
+    for i = ety_c, 1, -1 do
+        local entity = ety_list[i]
         evolved.remove(entity, cmp.TryCollapseField)
         local field = evolved.get(entity, cmp.Field)
 
@@ -117,9 +118,13 @@ local function update(chunk, ety_list, ety_c, dt)
             if evolved.has(tile_ety, cmp.FieldTileBusy) then
                 evolved.remove(tile_ety, cmp.FieldTileBusy)
                 local tile = evolved.get(tile_ety, cmp.FieldTile)
-                evolved.set(tile.body, gocmp.Disable)
+                evolved.set(tile.body, gocmp.SetLayer, cfg.layers.DISABLED)
                 score = score + cfg.scores.tile
-                --todo: animate
+                
+                local clone_ety = evolved.id()
+                evolved.set(clone_ety, gocmp.GameobjectClone, { source = tile.body })
+                evolved.set(clone_ety, gocmp.SetLayer, cfg.layers.FIELD_TILE)
+                evolved.set(clone_ety, cmp.AnimateTileDestroy, true)
             end
         end
 

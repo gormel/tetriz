@@ -1,10 +1,12 @@
 local evolved = require "lib.evolved"
-return {
+local dbg = require "dbg.dbg"
+local components = {
     GameobjectLink = evolved.id(), --hash(inst); links existing go to ety
-    GameobjectCreate = evolved.id(), --{ url, position, scale?, parent_id? }
+    GameobjectCreate = evolved.id(), --{ url(factory), position?, scale?, parent_id? }
+    GameobjectSource = evolved.id(), --url(factory)
     GameobjectId = evolved.id(), --hash(inst)
-    Disable = evolved.id(),
-    Disabled = evolved.id(),
-    Enable = evolved.id(),
-    Enabled = evolved.id(),
+    GameobjectClone = evolved.id(), --{ source: ety, position? }
+    SetLayer = evolved.id(), --layer: num
 }
+dbg.reg_components(components)
+return components

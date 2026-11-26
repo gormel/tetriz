@@ -6,12 +6,16 @@ local filter = evolved
     .builder()
     :include(ccmp.Destroy)
     :include(cmp.GameobjectId)
+    :include(cmp.GameobjectSource)
 
 local function update(chunk, ety_list, ety_c, dt)
-    for i = 1, ety_c do
+    for i = ety_c, 1, -1 do
         local ety = ety_list[i]
         local id = evolved.get(ety, cmp.GameobjectId)
-        pcall(go.delete, id, true)
+        if go.exists(id) then
+            pcall(go.delete, id, true)
+        end
+        evolved.remove(ety, cmp.GameobjectId)
     end
 end
 

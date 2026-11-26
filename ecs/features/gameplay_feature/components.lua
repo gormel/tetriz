@@ -1,7 +1,8 @@
 local evolved = require("lib.evolved")
+local dbg = require "dbg.dbg"
 
-return {
-    Source = evolved.id(), --url
+local components = {
+    FigureSource = evolved.id(), --url
     FigureCfg = evolved.id(), --cfg
     RollFigure = evolved.id(),
     SourceFigureCfg = evolved.id(), --cfg
@@ -20,4 +21,7 @@ return {
     TryCollapseField = evolved.id(),
     Score = evolved.id(), --value
     AddScore = evolved.id(), --value
+    AnimateTileDestroy = evolved.id(),
 }
+dbg.reg_components(components)
+return components

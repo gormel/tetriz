@@ -5,11 +5,14 @@ local filter = evolved.builder()
     :include(cmp.GameobjectLink)
 
 local function update(chunk, ety_list, ety_c, dt)
-    for _, entity in ipairs(ety_list) do
+    for i = ety_c, 1, -1 do
+        local entity = ety_list[i]
         local id = evolved.get(entity, cmp.GameobjectLink)
         
-        evolved.set(entity, cmp.GameobjectId, id)
-        pcall(go.set, msg.url(nil, id, "input"), "entity", entity)
+        if go.exists(id) then
+            evolved.set(entity, cmp.GameobjectId, id)
+            pcall(go.set, msg.url(nil, id, "input"), "entity", entity)
+        end
 
         evolved.remove(entity, cmp.GameobjectLink)
     end

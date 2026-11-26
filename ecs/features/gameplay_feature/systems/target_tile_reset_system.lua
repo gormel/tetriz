@@ -7,7 +7,8 @@ local filter = evolved.builder()
     :include(cmp.TargetTile)
 
 local function update(chunk, ety_list, ety_c, dt)
-    for _, entity in ipairs(ety_list) do
+    for i = ety_c, 1, -1 do
+        local entity = ety_list[i]
         evolved.remove(cmp.TargetTile, cmp.TargetTile)
     end
 end

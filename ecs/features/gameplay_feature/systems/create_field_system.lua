@@ -7,11 +7,13 @@ local filter = evolved.builder()
     :include(cmp.CreateField)
 
 local function update(chunk, ety_list, ety_c, dt)
-    for _, entity in ipairs(ety_list) do
+    for i = ety_c, 1, -1 do
+        local entity = ety_list[i]
         local id = evolved.get(entity, cmp.CreateField)
 
         evolved.set(entity, gocmp.GameobjectLink, id)
         evolved.set(entity, cmp.InitializeField, true)
+        evolved.set(entity, gocmp.SetLayer, cfg.layers.FIELD_BG)
 
         evolved.remove(entity, cmp.CreateField)
     end

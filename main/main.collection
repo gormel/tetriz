@@ -29,7 +29,7 @@ instances {
   id: "field"
   prototype: "/assets/prefabs/field.go"
   position {
-    x: 310.0
+    x: 319.0
     y: 724.0
   }
   scale3 {
@@ -48,6 +48,8 @@ instances {
 scale_along_z: 0
 embedded_instances {
   id: "root"
+  children: "background"
+  children: "field_grid"
   data: "components {\n"
   "  id: \"main\"\n"
   "  component: \"/main/main.script\"\n"
@@ -59,20 +61,6 @@ embedded_instances {
   "components {\n"
   "  id: \"hud\"\n"
   "  component: \"/ui/hud.gui\"\n"
-  "}\n"
-  "embedded_components {\n"
-  "  id: \"background\"\n"
-  "  type: \"sprite\"\n"
-  "  data: \"default_animation: \\\"background\\\"\\n"
-  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
-  "textures {\\n"
-  "  sampler: \\\"texture_sampler\\\"\\n"
-  "  texture: \\\"/main/main.atlas\\\"\\n"
-  "}\\n"
-  "\"\n"
-  "  position {\n"
-  "    z: -0.5\n"
-  "  }\n"
   "}\n"
   "embedded_components {\n"
   "  id: \"tile_factory\"\n"
@@ -98,20 +86,50 @@ embedded_instances {
   "  data: \"prototype: \\\"/assets/prefabs/filed_tile_placeholder.go\\\"\\n"
   "\"\n"
   "}\n"
-  "embedded_components {\n"
+  ""
+  position {
+    x: 320.0
+    y: 568.0
+  }
+}
+embedded_instances {
+  id: "background"
+  data: "embedded_components {\n"
+  "  id: \"background\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"background\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "size {\\n"
+  "  x: 640.0\\n"
+  "  y: 1136.0\\n"
+  "}\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/main/main.atlas\\\"\\n"
+  "}\\n"
+  "\"\n"
+  "}\n"
+  ""
+}
+embedded_instances {
+  id: "field_grid"
+  data: "embedded_components {\n"
   "  id: \"field_grid\"\n"
   "  type: \"sprite\"\n"
   "  data: \"default_animation: \\\"field_grid\\\"\\n"
   "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "size {\\n"
+  "  x: 270.0\\n"
+  "  y: 270.0\\n"
+  "}\\n"
   "textures {\\n"
   "  sampler: \\\"texture_sampler\\\"\\n"
   "  texture: \\\"/main/main.atlas\\\"\\n"
   "}\\n"
   "\"\n"
   "  position {\n"
-  "    x: -10.0\n"
+  "    x: -1.0\n"
   "    y: 156.0\n"
-  "    z: 0.6\n"
   "  }\n"
   "  scale {\n"
   "    x: 1.5\n"
@@ -119,8 +137,4 @@ embedded_instances {
   "  }\n"
   "}\n"
   ""
-  position {
-    x: 320.0
-    y: 568.0
-  }
 }
