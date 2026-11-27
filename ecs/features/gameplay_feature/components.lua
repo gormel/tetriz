@@ -12,6 +12,7 @@ local components = {
     FigureSourceRef = evolved.id(), --ety (figure)
     CreateField = evolved.id(),
     InitializeField = evolved.id(),
+    ClearField = evolved.id(),
     Field = evolved.id(), --tile_ety[]
     FieldTile = evolved.id(), --{ field: ety, body: ety, idx: int }
     FieldTileBusy = evolved.id(),
@@ -21,6 +22,7 @@ local components = {
     TryCollapseField = evolved.id(),
     Score = evolved.id(), --value
     AddScore = evolved.id(), --value
+    SetScore = evolved.id(), --value
     AnimateTileDestroy = evolved.id(),
 }
 dbg.reg_components(components)

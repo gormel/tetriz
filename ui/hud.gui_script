@@ -1,38 +1,55 @@
 local messages = require "cfg.messages"
+local druid = require "druid.druid"
+local dconst = require "druid.const"
 local broadcast = require "ludobits.m.broadcast"
 
 local SCHEME = {
-	score = "score_txt"
+	SCORE_TEXT = "score_txt",
+	REFRESH_BTN = "refresh_btn",
 }
 
+local function on_refresh_click(self)
+	broadcast.send(messages.RESTART, {})
+end
+
 function init(self)
-	self.score_text = gui.get_node(SCHEME.score)
+	self.druid = druid.new(self)
+
+	self.score_text = self.druid:new_text(SCHEME.SCORE_TEXT, "Score: 0", dconst.TEXT_ADJUST.NO_ADJUST)
+	self.druid:new_button(SCHEME.REFRESH_BTN, on_refresh_click)
 
 	broadcast.register(messages.SET_SCORE)
 end
 
 function final(self)
+    self.druid:final()
 	broadcast.unregister(messages.SET_SCORE)
 end
 
 function update(self, dt)
+    self.druid:update(dt)
 end
 
 function on_message(self, message_id, message, sender)
 	if message_id == messages.SET_SCORE then
-		gui.set_text(self.score_text, "Score: "..message.value)
-		local clone_node = gui.clone(self.score_text)
-		gui.set_text(clone_node, "+"..message.add_value)
-		local clone_pos = gui.get_position(clone_node)
-		gui.set_color(clone_node, vmath.vector3(0, 1, 0))
-		gui.animate(clone_node, "position.y", clone_pos.y + 100, gui.EASING_INQUAD, 1, 0, function(self, node)
-			gui.delete_node(node)
-		end)
-		gui.animate(clone_node, "color.w", 0, gui.EASING_LINEAR, 1, 0)
+		self.score_text:set_text("Score: "..message.value)
+		if message.add_value then
+			local clone_node = gui.clone(self.score_text:get_node(SCHEME.SCORE_TEXT))
+			gui.set_text(clone_node, "+"..message.add_value)
+			local clone_pos = gui.get_position(clone_node)
+			gui.set_color(clone_node, vmath.vector3(0, 1, 0))
+			gui.animate(clone_node, "position.y", clone_pos.y + 100, gui.EASING_INQUAD, 1, 0, function(self, node)
+				gui.delete_node(node)
+			end)
+			gui.animate(clone_node, "color.w", 0, gui.EASING_LINEAR, 1, 0)
+		end
+	else
+    	self.druid:on_message(message_id, message, sender)
 	end
 end
 
 function on_input(self, action_id, action)
+    return self.druid:on_input(action_id, action)
 end
 
 function on_reload(self)
